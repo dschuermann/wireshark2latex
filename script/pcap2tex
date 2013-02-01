@@ -1,0 +1,222 @@
+#!/usr/bin/perl
+#
+# The script takes wireshark or tcpdump data in PCAP format
+# and produce TEX Packet Flow Diagram.
+#
+# inFile - pcap data
+# outFile - tex data
+# cfgFile - config for the IP-DEV bindings
+#
+# The tshark is used internaly.
+#----------------------------------------------------------------------------
+sub debug {
+  # Usage: debug(2,"%d packets received\n",$1);
+  my $restriction=100; # 0 - do not print , 100 - print level <
+  my $level= shift;
+  my $format= shift;
+  if ( $level< 0 ) {
+	printf STDERR "ERROR--> $format",@_ if ($level< 0);
+  } 
+  elsif ($level<= $restriction) {
+	printf STDERR "debug--> $format",@_ if ($level<= $restriction);
+  }
+}
+#----------------------------------------------------------------------------
+sub usage {
+    printf STDERR <<__END
+
+Usage:
+	$0 File
+or:
+	$0 in=File1.pcap cfg=File2.cfg out=File3.tex
+
+Example: for \"File2.cfg\" :
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   \$dev= [
+        ["Terminal-1",  "10.155.0.201",],
+        ["SipServer",   "85.90.97.65",],
+        ["SBC",         "85.90.99.161","85.90.99.162","85.90.97.63",],
+        ["Gatekeeper",  "10.0.8.214"],
+        ["Terminal-4",  "10.155.0.204",],
+      ];
+#-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+__END
+
+}
+#----------------------------------------------------------------------------
+sub getArg {
+  $inFile="."; $cfgFile="."; $outFile=".";
+  my $myFile=".";
+  if ( $#ARGV == 0 ) {
+        if ( $ARGV[0] =~ /in=([\w[:punct:]]+)/ ) {
+             $inFile=$1;
+        } else {
+	     $inFile=$ARGV[0];
+	}
+	if ( $inFile  =~ /([\w[:punct:]]+)\.pcap$/  ) {
+	     $myFile=$1;
+        } else {
+             $myFile=$ARGV[0];
+	} 
+        $inFile="$myFile".".pcap";
+        $cfgFile="$myFile".".cfg";
+        $outFile="$myFile".".tex";
+  } 
+  else {
+      for ( my $i=0; $i<=$#ARGV; $i++) {
+	  if ( $ARGV[$i] =~ /in=([\w[:punct:]]+)/ ) {
+		$inFile=$1; 
+          } 
+          elsif ( $ARGV[$i] =~ /cfg=([\w[:punct:]]+)/ ) {
+		$cfgFile=$1; 
+          }
+          elsif ( $ARGV[$i] =~ /dev=([\w[:punct:]]+)/ ) {
+                $cfgFile=$1;
+          }
+          elsif ( $ARGV[$i] =~ /out=([\w[:punct:]]+)/ ) {
+                $outFile=$1; 
+          } 
+          else {
+		debug(-1,"Unknown argument:%s\n",$ARGV[$i]);
+	  }
+      }
+  }
+  debug(2,"inFile=%s\n",$inFile);
+  debug(2,"cfgFile=%s\n",$cfgFile);
+  debug(2,"outFile=%s\n",$outFile);
+#
+  if ( ($inFile eq ".") or  ($cfgFile eq ".") or ($outFile eq ".") ) {
+    usage;
+    exit 0;
+  } 
+}
+#----------------------------------------------------------------------------
+sub checkFile {
+	my $F=0;
+	if (! -r $inFile ) {
+	    debug(-1,"There is no PCAP Data File=%s\n",$inFile);
+	    $F=1;
+	}
+	if (! -r $cfgFile ) {
+	    debug(-1,"There is no Dev IP Config File=%s\n",$cfgFile);
+	    $F=1;
+	}
+	exit(0) if ( $F==1 );
+}
+#----------------------------------------------------------------------------
+# Begin of Help procedures for tshark2tex -->
+#
+# checks if IP is in  {dev}
+# returns N - devnum if yes
+#         0 - if no
+#
+sub devnum {
+    my $ip= shift;
+    for ( my $i=0 ; $i < scalar @{$dev} ; $i++ ) {
+        for ( my $j=1 ; $j < scalar @{$dev->[$i]} ; $j++ ) {
+	     if ( "$ip" eq "$dev->[$i][$j]" ) {
+		debug(4,"Compare: %s :vs: %s - OK\n", $ip, $dev->[$i][$j]);
+		return $i+1;
+             }
+	}
+    }
+    debug(4,"Compare: %s :vs: %s - NOT EQ\n", $ip, $dev->[$i][$j]);
+    return 0;
+}
+#-----------------------------------------------------------------
+# Convert Info fild:
+#
+sub infofild {
+  my $in= shift;
+    $in =~ s{Seq=\d+}{\%}sg;
+    $in =~ s{Ack=\d+}{\%}sg;
+    $in =~ s{Win=\d+}{\%}sg;
+    $in =~ s{Len=\d+}{\%}sg;
+    $in =~ s{MSS=\d+}{\%}sg;
+    $in =~ s{with session description}{\%}sg;
+    $in =~ s{Time=\d+}{\%}sg;
+    $in =~ s{SSRC=[\dABCDEFx]+}{\%}sg;
+    $in =~ s{[\%\,\;\s]+}{ }sg;
+  return $in;
+}
+#---------------------------------------------------------------
+sub printHeader {
+    my $G = shift;
+    printf $G ( "%%\n%% Begin of %s generated section --> \n%%\n",$0 );
+    printf $G "%% Begin of Config: %s -->\n%%\n",$cfgFile;
+#     printf $G scalar @{$dev};
+    for ( my $i=0 ; $i < scalar @{$dev} ; $i++ ) {
+	printf $G "%%   DEVICE: $dev->[$i][0] : ";
+        for ( my $j=1 ; $j < scalar @{$dev->[$i]} ; $j++ ) {
+	     printf $G "IP=%s; ",$dev->[$i][$j];
+        }
+	printf $G "\n";
+    }
+    printf $G "%%\n%% <--End of Config: %s\n",$cfgFile;
+
+  for ( my $i=0 ; $i < scalar @{$dev} ; $i++ ) {
+     printf $G "\\ADDDEV{%s}{%d};\n", $dev->[$i][$0], scalar(@{$dev})+1 ;
+  }
+}
+#-----------------------------------------------------------------
+sub printTrailer {
+        my $G = shift;
+	print $G ( "%\n% <-- End of $0 generated section. \n%\n" );
+}
+#<--End of Help procedures for tshark2tex
+#-----------------------------------------------------------------
+sub tshark2tex {
+    my $F = shift;  
+    my $G = shift;
+    
+    while ( my $line = <$F> ) {
+        chomp $line;
+# 6   0.033097  85.90.97.65 -> 85.90.97.63  H.225.0 RAS: admissionRequest
+# 11.935441 10.155.0.204 -> 85.90.97.65  TCP h323hostcall > 11903 [FIN, ACK] S
+# Process the Infoline and print MESSAGE:
+#
+        my ($tmp,$tmp,$time,$src,$tmp,$dst,$proto,$info)=split(/\s+/,$line,8);
+        debug(4,"src=%s\n dst=%s\n proto=%s\n info=%s\n",
+    		$src,$dst,$proto,$info);
+    
+    	$src_dev=devnum( $src ) ;
+    	$dst_dev=devnum( $dst ) ;
+    
+    	if (  $src_dev==0  ) {
+    	    printf $G ("%% WARNING: no src ip in config: %s)\n",$src);
+            printf $G ("%% WARNING: details: %s\n",infofild($info) );
+    	} elsif ($dst_dev==0) {
+      	    printf $G ("%% WARNING: no dst ip in config: %s)\n",$dst);
+    	    printf $G ("%% WARNING: details: %s\n",infofild($info) );
+    	} else {
+            printf $G ("\\MESSAGE{%d}{%d}{%s}{%s}{}{0}\n",
+    	    		$src_dev, $dst_dev , $proto, infofild($info)  );
+        }
+    }
+}
+#-------------------------------------------------------------------------
+
+########################### BEGIN MAIN ###################################
+
+getArg;
+checkFile;
+
+require "$cfgFile" || die "Can not open Config from $cfgFile";
+
+$cmdOut=sprintf("tshark -r %s -E header=y", $inFile);
+debug(2,"Command Pipe: %s\n",$cmd);
+
+
+open $inF,( "$cmdOut |" ) || die "Can not open tshark pipe.";
+open $outF, (">$outFile") || die "Can not open output $outFile";
+
+    printHeader($outF);
+    tshark2tex($inF,$outF);
+    printTrailer($outF);
+
+close $inF;
+close $outF;
+
+
+########################### END MAIN ###################################

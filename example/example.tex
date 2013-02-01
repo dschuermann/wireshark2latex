@@ -1,0 +1,26 @@
+\documentclass[a4paper,10pt]{article}
+
+% encoding and font
+\usepackage[T1]{fontenc} % font encoding in pdf
+\usepackage[utf8]{inputenc} % encoding of latex files
+
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,shadows,decorations.pathmorphing,backgrounds,fit,positioning,calc,shapes}
+
+\begin{document}
+
+  \input{../include/flow.tex}
+
+  
+ \begin{figure}[!ht]
+    \begin{center}
+      \begin{tikzpicture}
+        \FLOWPART{call}{1}{100}
+      \end{tikzpicture}
+    \end{center}
+    \caption{test}
+    \label{fig:test}
+  \end{figure}
+    
+\end{document}

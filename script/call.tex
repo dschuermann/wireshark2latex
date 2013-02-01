@@ -1,0 +1,42 @@
+%
+% Begin of ./pcap2tex generated section --> 
+%
+% Begin of Config: call.cfg -->
+%
+%   DEVICE: Alice : IP=134.169.176.251; 
+%   DEVICE: Bob : IP=134.169.181.138; 
+%
+% <--End of Config: call.cfg
+\ADDDEV{Alice}{2};
+\ADDDEV{Bob}{2};
+\MESSAGE{2}{1}{TCP}{76 50853 > 6666 [SYN] TSval=8147632 TSecr=0 WS=64}{}{0}
+\MESSAGE{1}{2}{TCP}{76 6666 > 50853 [SYN ACK] TSval=2938176 TSecr=8147632 WS=64}{}{0}
+\MESSAGE{2}{1}{TCP}{68 50853 > 6666 [ACK] TSval=8147688 TSecr=2938176}{}{0}
+\MESSAGE{2}{1}{SSL}{294 Client Hello}{}{0}
+\MESSAGE{1}{2}{TCP}{68 6666 > 50853 [ACK] TSval=2938193 TSecr=8147689}{}{0}
+\MESSAGE{1}{2}{TLSv1}{1057 Server Hello Certificate Certificate Request Server Hello Done}{}{0}
+\MESSAGE{2}{1}{TCP}{68 50853 > 6666 [ACK] TSval=8147741 TSecr=2938277}{}{0}
+\MESSAGE{2}{1}{TLSv1}{1516 Certificate Client Key Exchange Certificate Verify}{}{0}
+\MESSAGE{2}{1}{TLSv1}{125 Change Cipher Spec Encrypted Handshake Message}{}{0}
+\MESSAGE{1}{2}{TCP}{68 6666 > 50853 [ACK] TSval=2938320 TSecr=8147752}{}{0}
+\MESSAGE{1}{2}{TCP}{68 6666 > 50853 [ACK] TSval=2938320 TSecr=8147752}{}{0}
+\MESSAGE{1}{2}{TLSv1}{1230 New Session Ticket Change Cipher Spec Encrypted Handshake Msg}{}{0}
+\MESSAGE{2}{1}{TCP}{68 50853 > 6666 [ACK] TSval=8147761 TSecr=2938333}{}{0}
+\MESSAGE{2}{1}{TLSv1}{1358 Application Data Application Data}{}{0}
+\MESSAGE{1}{2}{TCP}{68 6666 > 50853 [ACK] TSval=2938337 TSecr=8147761}{}{0}
+\MESSAGE{1}{2}{TLSv1}{478 Application Data Application Data}{}{0}
+\MESSAGE{2}{1}{TCP}{68 50853 > 6666 [ACK] TSval=8147797 TSecr=2938363}{}{0}
+\MESSAGE{1}{2}{TLSv1}{1150 Application Data Application Data}{}{0}
+\MESSAGE{2}{1}{TCP}{68 50853 > 6666 [ACK] TSval=8147863 TSecr=2938540}{}{0}
+\MESSAGE{2}{1}{TLSv1}{526 Application Data Application Data}{}{0}
+\MESSAGE{1}{2}{TCP}{68 6666 > 50853 [ACK] TSval=2938557 TSecr=8147871}{}{0}
+\MESSAGE{2}{1}{TLSv1}{558 Application Data Application Data}{}{0}
+\MESSAGE{1}{2}{TCP}{68 6666 > 50853 [ACK] TSval=2939367 TSecr=8148276}{}{0}
+\MESSAGE{1}{2}{TLSv1}{510 Application Data Application Data}{}{0}
+\MESSAGE{2}{1}{TCP}{68 50853 > 6666 [ACK] TSval=8148277 TSecr=2939368}{}{0}
+\MESSAGE{2}{1}{TCP}{68 50853 > 6666 [FIN ACK] TSval=8148332 TSecr=2939368}{}{0}
+\MESSAGE{1}{2}{TCP}{68 6666 > 50853 [FIN ACK] TSval=2939487 TSecr=8148332}{}{0}
+\MESSAGE{2}{1}{TCP}{68 50853 > 6666 [ACK] TSval=8148337 TSecr=2939487}{}{0}
+%
+% <-- End of ./pcap2tex generated section. 
+%
