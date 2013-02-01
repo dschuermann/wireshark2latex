@@ -1,0 +1,3 @@
+#!/bin/sh
+
+pdflatex $1.tex && pdflatex $1.tex && pdflatex $1.tex

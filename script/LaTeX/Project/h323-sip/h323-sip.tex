@@ -1,0 +1,67 @@
+%
+% Begin of ../../Script/pcap2tex generated section --> 
+%
+% Begin of Config: h323-sip.cfg -->
+%
+%   DEVICE: Terminal 1 : IP=10.155.0.201; 
+%   DEVICE: SipServer : IP=10.0.8.214; 
+%   DEVICE: SBC : IP=85.90.99.161; IP=85.90.99.162; IP=85.90.97.65; 
+%   DEVICE: Gatekeeper : IP=85.90.97.63; 
+%   DEVICE: Terminal 4 : IP=10.155.0.204; 
+%
+% <--End of Config: h323-sip.cfg
+\ADDDEV{Terminal 1}{5};
+\ADDDEV{SipServer}{5};
+\ADDDEV{SBC}{5};
+\ADDDEV{Gatekeeper}{5};
+\ADDDEV{Terminal 4}{5};
+\MESSAGE{1}{3}{SIP/SDP}{Request: INVITE sip:4997450629@85.90.99.161 }{}{0}
+\MESSAGE{3}{1}{SIP}{Status: 100 Trying}{}{0}
+\MESSAGE{3}{2}{SIP/SDP}{Request: INVITE sip:4997450629@10.0.8.214:5060 }{}{0}
+\MESSAGE{2}{3}{SIP}{Status: 404 Not Found}{}{0}
+\MESSAGE{3}{2}{SIP}{Request: ACK sip:4997450629@10.0.8.214:5060}{}{0}
+\MESSAGE{3}{4}{H.225.0}{RAS: admissionRequest }{}{0}
+\MESSAGE{4}{3}{H.225.0}{RAS: admissionConfirm }{}{0}
+\MESSAGE{3}{5}{TCP}{18742 > h323hostcall [SYN] }{}{0}
+\MESSAGE{5}{3}{TCP}{h323hostcall > 18742 [SYN ACK] }{}{0}
+\MESSAGE{3}{5}{TCP}{18742 > h323hostcall [ACK] }{}{0}
+\MESSAGE{3}{5}{H.225.0}{CS: setup OpenLogicalChannel }{}{0}
+\MESSAGE{5}{3}{H.225.0}{CS: callProceeding OpenLogicalChannel }{}{0}
+\MESSAGE{5}{3}{H.225.0}{CS: alerting OpenLogicalChannel }{}{0}
+\MESSAGE{3}{1}{SIP}{Status: 180 Ringing}{}{0}
+\MESSAGE{3}{5}{H.225.0/H.245}{CS: facility terminalCapabilitySet }{}{0}
+\MESSAGE{5}{3}{H.225.0/H.245}{CS: empty terminalCapabilitySet }{}{0}
+\MESSAGE{3}{5}{H.225.0/H.245}{CS: facility masterSlaveDetermination }{}{0}
+\MESSAGE{5}{3}{H.225.0/H.245}{CS: empty terminalCapabilitySetAck }{}{0}
+\MESSAGE{3}{5}{H.225.0/H.245}{CS: facility terminalCapabilitySetAck }{}{0}
+\MESSAGE{5}{3}{H.225.0/H.245}{CS: empty masterSlaveDeterminationAck }{}{0}
+\MESSAGE{3}{5}{H.225.0/H.245}{CS: facility masterSlaveDeterminationAck }{}{0}
+\MESSAGE{5}{3}{TCP}{h323hostcall > 18742 [ACK] }{}{0}
+\MESSAGE{5}{3}{H.225.0}{CS: connect OpenLogicalChannel }{}{0}
+\MESSAGE{3}{5}{TCP}{18742 > h323hostcall [ACK] }{}{0}
+\MESSAGE{3}{1}{SIP/SDP}{Status: 200 OK }{}{0}
+\MESSAGE{5}{3}{RTCP}{Receiver Report Source description }{}{0}
+\MESSAGE{3}{1}{RTCP}{Receiver Report Source description }{}{0}
+\MESSAGE{5}{3}{RTP}{PT=ITU-T G.711 PCMU }{}{0}
+\MESSAGE{3}{1}{RTP}{PT=ITU-T G.711 PCMU }{}{0}
+\MESSAGE{1}{3}{SIP}{Request: ACK sip:85.90.99.161}{}{0}
+\MESSAGE{1}{3}{RTP}{PT=ITU-T G.711 PCMU }{}{0}
+\MESSAGE{3}{5}{RTP}{PT=ITU-T G.711 PCMU }{}{0}
+\MESSAGE{3}{1}{SIP/SDP}{Request: INVITE sip:4956171777@10.155.0.201 }{}{0}
+\MESSAGE{1}{3}{SIP/SDP}{Status: 200 OK }{}{0}
+\MESSAGE{3}{1}{SIP}{Request: ACK sip:4956171777@10.155.0.201}{}{0}
+\MESSAGE{3}{5}{H.225.0/H.245}{CS: facility terminalCapabilitySet }{}{0}
+\MESSAGE{5}{3}{H.225.0/H.245}{CS: empty terminalCapabilitySetAck }{}{0}
+\MESSAGE{3}{5}{TCP}{18742 > h323hostcall [ACK] }{}{0}
+\MESSAGE{5}{3}{H.225.0}{CS: releaseComplete }{}{0}
+\MESSAGE{3}{4}{H.225.0}{RAS: disengageRequest }{}{0}
+\MESSAGE{3}{5}{TCP}{18742 > h323hostcall [FIN PSH ACK] }{}{0}
+\MESSAGE{5}{3}{TCP}{h323hostcall > 18742 [ACK] }{}{0}
+\MESSAGE{4}{3}{H.225.0}{RAS: disengageConfirm }{}{0}
+\MESSAGE{3}{1}{SIP}{Request: BYE sip:4956171777@10.155.0.201}{}{0}
+\MESSAGE{5}{3}{TCP}{h323hostcall > 18742 [FIN ACK] }{}{0}
+\MESSAGE{3}{5}{TCP}{18742 > h323hostcall [ACK] }{}{0}
+\MESSAGE{1}{3}{SIP}{Status: 200 OK}{}{0}
+%
+% <-- End of ../../Script/pcap2tex generated section. 
+%

@@ -1,0 +1,55 @@
+% 
+% Packet Flow Diagram Draft 
+%
+ \documentclass[10pt,a4paper,oneside,notitlepage]{article}
+ \pdfpagewidth=\paperwidth
+ \pdfpageheight=\paperheight
+%
+%	Русификации.
+%
+ \usepackage[koi8-r]{inputenc}
+ \usepackage[english,russian]{babel}
+%
+%	 Встроенная графика.
+%
+ \usepackage{tikz}
+% \usepackage{pgflibraryshapes} % obsolite ; use \usetikzlibrary{shapes} 
+% \usepgflibrary{shapes.multipart}
+%
+ \usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,fit,positioning,calc,shapes}
+ \usepackage{pgfmath}	% --math engine
+% \usetikzlibrary{calc} % -- Coordinates math ($ $)
+%================================================================================
+%		Стиль документа
+%
+ \topmargin -1.5cm        % read Lamport p.163
+ \oddsidemargin -0.04cm   % read Lamport p.163
+ \evensidemargin -0.04cm  % same as oddsidemargin but for left-hand pages
+%
+%
+% \textwidth 16.59cm
+% \textheight 21.94cm 
+\pagestyle{myheadings}       	% Устанавливает стили страниц - 
+%----------------------------------------
+% Установка маленьких одинаковых полей:
+%
+\usepackage[cm,myheadings]{fullpage}
+%
+% \parskip 7.2pt           	% sets spacing between paragraphs
+%\renewcommand{\baselinestretch}{1.5} 	% Uncomment for 1.5 spacing between lines
+% \parindent 0pt		 	% sets leading space for paragraphs
+
+%===============================================================================
+\begin{document}
+\input{../../Function/flow}
+ \begin{figure}[!h]
+   \begin{center}
+   \caption{ Draft: call-edited }
+%   \label{FLOW-1}
+        \begin{tikzpicture}
+        \FLOWPART{call-edited}{1}{100}
+        \end{tikzpicture}
+  \end{center}
+ \end{figure}
+\end{document}
+

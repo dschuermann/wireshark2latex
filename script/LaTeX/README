@@ -1,0 +1,38 @@
+
+
+This is the example of "pcap2tex" script usage.
+
+The "pcap2tex" is the perl script for the Packet Flow Diagram generation.
+It creates the LaTeX include files using the TikZ-picture package commands.
+
+Please see the pdf-files in the Project/* subdirectories for the example
+diagrams.
+
+In the Project/sip-call:
+
+Input Files: 
+	call.pcap	-  wireshark PCAP data file
+	call.cfg	-  configuration file for the IP<->DeviceName mapping.
+
+Output Files:
+	call.tex	- include for the LaTeX document.
+	draft-call.pdf  - pdf preview for the Diagramm page.
+
+-------------
+Project Directory
+		 contans the LaTeX documents in subdirectories.
+Script Directory:
+		 contans scripts for the pcap processing.
+Function Directory:
+		 contains the "flow.tex" include with LaTeX command definition.
+		 The defined commands are used in the "pcap2tex" output.
+		You need to include it in LaTeX doc . See how draft.tex uses it.
+------------
+
+Examples:
+	Go to the "Project/wireshark-v1" directory.
+	Type "make pdf=call" to see the example draft.
+
+	Edit Makefile as you need.
+
+--------------
