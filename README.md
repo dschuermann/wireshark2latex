@@ -6,9 +6,10 @@ Generate TikZ graphics from tcpdump/Wireshark captures for usage in LaTeX docume
 
 Forked to fix some issues with the original script.
 
-Original script by Vladimir V. Lavrov 
+Original script by Vladimir V. Lavrov
+
 From http://www.wireshark.org/lists/wireshark-users/201007/msg00258.html
 
-# Example of generated Tikz diagram
+# Example of generated TikZ graphic
 
 ![Screenshot](https://github.com/dschuermann/wireshark2latex/raw/master/screenshot.png "Screenshot")
