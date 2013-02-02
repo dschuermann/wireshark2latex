@@ -10,16 +10,46 @@
 
 \begin{document}
 
+  % include definitions for wireshark2latex
   \input{../include/flow.tex}
 
-  
- \begin{figure}[!ht]
+  \begin{figure}[tb]
     \begin{center}
       \begin{tikzpicture}
-        \FLOWPART{call}{1}{100}
+        \FLOWPART{wireshark/tls}{1}{100}
       \end{tikzpicture}
     \end{center}
-    \caption{test}
+    \caption{Example: tls}
+    \label{fig:test}
+  \end{figure}
+  
+  \begin{figure}[tb]
+    \begin{center}
+      \begin{tikzpicture}
+        \FLOWPART{wireshark/h323-sip}{1}{100}
+      \end{tikzpicture}
+    \end{center}
+    \caption{Example: h323-sip}
+    \label{fig:test}
+  \end{figure}
+  
+  \begin{figure}[tb]
+    \begin{center}
+      \begin{tikzpicture}
+        \FLOWPART{wireshark/call}{1}{100}
+      \end{tikzpicture}
+    \end{center}
+    \caption{Example: call}
+    \label{fig:test}
+  \end{figure}
+  
+  \begin{figure}[tb]
+    \begin{center}
+      \begin{tikzpicture}
+        \FLOWPART{wireshark/call-edited}{1}{100}
+      \end{tikzpicture}
+    \end{center}
+    \caption{Example: call-edited}
     \label{fig:test}
   \end{figure}
     

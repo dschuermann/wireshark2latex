@@ -2,6 +2,14 @@
 
 Generate TikZ graphics from tcpdump/Wireshark captures for usage in LaTeX documents.
 
+# Instructions
+
+1. Install tshark
+2. Put your captured pcap file under ``script`` and name it ``capture.pcap``
+3. Configure IP addresses in ``script/capture.cfg``
+4. Run ``script/generate``
+5. Look at ``example/example.tex`` how to include generated tex file
+
 # Infos
 
 Forked to fix some issues with the original script.
